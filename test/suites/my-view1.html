@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <base href="../../build/"/>
+
+  <!-- MAIN IMPORTS -->
+  <script src="../node_modules/wct-browser-legacy/browser.js"></script>
+
+  <script>
+    window.Polymer={rootPath:"/"};
+  </script>
+
+  <!-- All bundle -->
+  <script src="scripts/wc/webcomponents-loader.js"></script>
+  <script src="scripts/app.js"></script>
+</head>
+
+<body>
+  <test-fixture id="element">
+    <template>
+      <my-view1></my-view1>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('<my-view1>', () => {
+      let element;
+      let isRegistered = function(name) {
+        return document.createElement(name).constructor !== HTMLElement;
+      }
+      setup(() => {
+        element = fixture('element');
+      });
+      suite('Test Properties', () => {
+        test('<my-view1> is registered', () => {
+          assert.isTrue(isRegistered('my-view1'));
+        });
+        test('<my-view1> have shadowRoot', () => {
+          assert.isDefined(element.shadowRoot);
+        });
+        test('<my-view1> have one class circle', () => {
+          assert.equal(element.shadowRoot.querySelectorAll('.circle').length, 1);
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

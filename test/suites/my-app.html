@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <base href="../../build/"/>
+
+  <!-- MAIN IMPORTS -->
+  <script src="../node_modules/wct-browser-legacy/browser.js"></script>
+
+  <script>
+    window.Polymer={rootPath:"/"};
+  </script>
+
+  <!-- All bundle -->
+  <script src="scripts/wc/webcomponents-loader.js"></script>
+  <script src="scripts/app.js"></script>
+</head>
+
+<body>
+  <test-fixture id="element">
+    <template>
+      <my-app></my-app>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('<my-app>', () => {
+      let element;
+      let isRegistered = function(name) {
+        return document.createElement(name).constructor !== HTMLElement;
+      }
+      setup(() => {
+        element = fixture('element');
+      });
+      suite('Test Properties', () => {
+        test('<my-app> is registered', () => {
+          assert.isTrue(isRegistered('my-app'));
+        });
+        test('<my-app> page is defined', () => {
+          assert.isDefined(element.page);
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
